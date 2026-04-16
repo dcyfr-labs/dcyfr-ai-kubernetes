@@ -52,12 +52,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dcyfr/dcyfr-ai-kubernetes"
+    "url": "https://github.com/dcyfr-labs/dcyfr-ai-kubernetes"
   },
   "bugs": {
-    "url": "https://github.com/dcyfr/dcyfr-ai-kubernetes/issues"
+    "url": "https://github.com/dcyfr-labs/dcyfr-ai-kubernetes/issues"
   },
-  "homepage": "https://github.com/dcyfr/dcyfr-ai-kubernetes#readme",
+  "homepage": "https://github.com/dcyfr-labs/dcyfr-ai-kubernetes#readme",
   "dependencies": {
     "zod": "^4.3.6"
   },
