@@ -1,0 +1,8 @@
+{
+  "repo_notes": [
+    {
+      "content": "Kubernetes deployment configurations for DCYFR AI services. Document the Kubernetes manifests, Helm charts, service mesh integration, scaling strategies, and operational patterns for running AI workloads on Kubernetes.",
+      "author": "DCYFR Engineering"
+    }
+  ]
+}

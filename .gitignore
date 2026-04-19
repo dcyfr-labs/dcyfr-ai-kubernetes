@@ -1,5 +1,6 @@
 node_modules/
 dist/
+tsconfig.tsbuildinfo
 .env
 *.tgz
 charts/*/charts/
