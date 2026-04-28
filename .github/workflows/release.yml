@@ -48,7 +48,7 @@ jobs:
       - name: Verify npm version and OIDC support
         run: |
           echo "npm version: $(npm --version)"
-          npm --version | awk '{if ($1 < 11.5) exit 1}'
+          npm --version | awk -F. '{if (($1*100)+$2 < 1105) exit 1}'
           echo "✅ npm supports Trusted Publishing"
           echo "OIDC environment variables:"
           env | grep ACTIONS_ID_TOKEN || echo "⚠️ No OIDC tokens found"
