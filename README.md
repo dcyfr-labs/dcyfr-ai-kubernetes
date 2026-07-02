@@ -21,7 +21,7 @@
 > This package is now marked `"private": true` to prevent future publication.  
 > Content will be integrated into DCYFR agent knowledge capabilities (2026 roadmap).
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/dcyfr/dcyfr-ai-kubernetes)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/dcyfr-labs/dcyfr-ai-kubernetes)
 
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-1.28+-326CE5?style=flat-square&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
 [![Status](https://img.shields.io/badge/Status-Deprecated-red?style=flat-square)](https://github.com/dcyfr/dcyfr-ai-kubernetes)
