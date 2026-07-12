@@ -4,8 +4,8 @@
   tlp_clearance: GREEN
   status: deprecated
   name: dcyfr-ai-kubernetes
-  description: Kubernetes deployment toolkit — generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai
-  last_validated: 2026-03-29
+  description: Kubernetes deployment toolkit — generate, validate, and manage K8s manifests and Helm charts in TypeScript
+  last_validated: 2026-07-11
 -->
 
 > **⚠️ PACKAGE DEPRECATED ON NPM (February 27, 2026)**  
@@ -24,7 +24,8 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/dcyfr-labs/dcyfr-ai-kubernetes)
 
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-1.28+-326CE5?style=flat-square&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
-[![Status](https://img.shields.io/badge/Status-Deprecated-red?style=flat-square)](https://github.com/dcyfr/dcyfr-ai-kubernetes)
+[![CI](https://github.com/dcyfr-labs/dcyfr-ai-kubernetes/actions/workflows/ci.yml/badge.svg)](https://github.com/dcyfr-labs/dcyfr-ai-kubernetes/actions/workflows/ci.yml)
+[![Status](https://img.shields.io/badge/Status-Deprecated-red?style=flat-square)](https://github.com/dcyfr-labs/dcyfr-ai-kubernetes)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
 ~~Production-ready Kubernetes deployment template~~ **DEPRECATED: Use Pulumi or CDK8s**
@@ -35,8 +36,8 @@
 
 - **DCYFR** is a registered trademark of DCYFR Labs.
 - Primary domain: [www.dcyfr.ai](https://www.dcyfr.ai)
-- Trademark guidance: [../TRADEMARK.md](../TRADEMARK.md)
 - Licensing details: [LICENSE](./LICENSE)
+- Security policy: [SECURITY.md](./SECURITY.md)
 
 ## Features
 
@@ -118,8 +119,8 @@ console.log(toYAML(service));
 ### Deploy to Kubernetes
 
 ```bash
-# Generate manifests
-node generate-manifests.ts > app.yaml
+# Generate manifests (examples print YAML to stdout; tsx is a devDependency)
+npx tsx examples/web-app/index.ts > app.yaml
 
 # Validate before applying
 kubectl apply --dry-run=client -f app.yaml
@@ -136,7 +137,9 @@ kubectl rollout status deployment/my-app -n production
 
 Comprehensive guides for production Kubernetes deployments:
 
+- **[docs/API.md](docs/API.md)** — Full API reference for all modules
 - **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** — Cluster setup (GKE, EKS, AKS), zero-downtime deployments, blue-green and canary strategies
+- **[docs/AGENT_CONTAINER_JOB_TEMPLATE.md](docs/AGENT_CONTAINER_JOB_TEMPLATE.md)** — Agent container Job template guidance
 - **[docs/MONITORING.md](docs/MONITORING.md)** — Prometheus + Grafana setup, logging with ELK/Loki, distributed tracing with Jaeger
 - **[docs/SCALING.md](docs/SCALING.md)** — HPA (CPU/memory/custom metrics), VPA, Cluster Autoscaler configuration
 - **[docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** — Common pod issues (CrashLoopBackOff, Pending, ImagePullBackOff), networking problems, volume errors
@@ -441,7 +444,7 @@ import {
 } from "@dcyfr/ai-kubernetes/helm";
 
 // Create Chart.yaml
-const chart = createChart({
+let chart = createChart({
   name: "my-app",
   version: "1.0.0",
   appVersion: "1.0.0",
@@ -553,12 +556,15 @@ This template includes comprehensive example deployments:
 - **[examples/helm-chart/](examples/helm-chart/)** — Helm chart generation with values and templates
 - **[examples/microservices/](examples/microservices/)** — Multi-service architecture with HPA and network policies
 
-Run examples:
+Run examples (each prints validation results + YAML to stdout; redirect to a file to apply):
 
 ```bash
-cd examples/web-app
-node generate-manifests.ts
+npx tsx examples/web-app/index.ts > manifests.yaml
 kubectl apply -f manifests.yaml
+
+# Other examples
+npx tsx examples/helm-chart/index.ts
+npx tsx examples/microservices/index.ts
 ```
 
 ## Platform Deployment Guides
@@ -655,7 +661,7 @@ const deployment = createDeployment({
 });
 ```
 
-See [docs/MONITORING.md](docs/MONITORING.md) for Prometheus +Grafana setup, ELK stack logging, and distributed tracing with Jaeger.
+See [docs/MONITORING.md](docs/MONITORING.md) for Prometheus + Grafana setup, ELK stack logging, and distributed tracing with Jaeger.
 
 ## Security Best Practices
 
@@ -728,20 +734,18 @@ Before deploying to production:
 - [ ] **Image Scanning** — Scan for vulnerabilities (Trivy, Clair)
 - [ ] **Backup** — Implement etcd backup strategy
 
-## Resource Profiles
+## Environment Files
 
-| Profile | CPU Request | CPU Limit | Memory Request | Memory Limit |
-| ------- | ----------- | --------- | -------------- | ------------ |
-| small   | 50m         | 200m      | 64Mi           | 256Mi        |
-| medium  | 250m        | 500m      | 256Mi          | 512Mi        |
-| large   | 500m        | 1000m     | 512Mi          | 1Gi          |
-| ai      | 1000m       | 4000m     | 2Gi            | 8Gi          |
+The library itself reads **no environment variables** — it is a pure manifest-generation toolkit. Two env files ship for convenience:
+
+- **`.env.example`** — reference values (`KUBECONFIG`, `KUBE_CONTEXT`, `KUBE_NAMESPACE`, `HELM_CHART_DIR`, `HELM_RELEASE_PREFIX`, `CONTAINER_REGISTRY`, `IMAGE_TAG`, `APP_NAME`, `APP_PORT`, `APP_REPLICAS`) for your own deployment tooling built on top of the generated manifests. Nothing in `src/` or `examples/` consumes them.
+- **`.env.ci`** — CI-only 1Password secret references used by GitHub Actions (`load-secrets-action`); not for local use.
 
 ## Development
 
 ```bash
 # Clone repository
-git clone https://github.com/dcyfr/dcyfr-ai-kubernetes.git
+git clone https://github.com/dcyfr-labs/dcyfr-ai-kubernetes.git
 cd dcyfr-ai-kubernetes
 
 # Install dependencies
@@ -754,6 +758,9 @@ npm run test:run
 npm run test:watch
 
 # Type checking
+npm run typecheck
+
+# Lint
 npm run lint
 
 # Build
@@ -765,7 +772,7 @@ npm run test:coverage
 
 ## Contributing
 
-Contributions welcome! See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
+Contributions welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ## License
 
