@@ -8,6 +8,15 @@ updates:
       time: "04:00"
       timezone: "UTC"
     open-pull-requests-limit: 10
+
+    # vitest and @vitest/* must move in lockstep: @vitest/coverage-v8 pins
+    # an exact `vitest` peer and refuses to run against a different version.
+    # Ungrouped, Dependabot opens one PR per package and each fails alone
+    # (vitest 5.0.1 split across #88/#89), so neither can ever go green.
+    groups:
+      vitest:
+        patterns: ["vitest", "@vitest/*"]
+
     labels:
       - "dependencies"
       - "automated"
