@@ -34,7 +34,7 @@
 
 `@dcyfr/ai-kubernetes` is maintained by **DCYFR Labs** as part of the DCYFR infrastructure toolkit portfolio.
 
-- **DCYFR** is a registered trademark of DCYFR Labs.
+- **DCYFR** is a trademark of DCYFR Labs.
 - Primary domain: [www.dcyfr.ai](https://www.dcyfr.ai)
 - Licensing details: [LICENSE](./LICENSE)
 - Security policy: [SECURITY.md](./SECURITY.md)
