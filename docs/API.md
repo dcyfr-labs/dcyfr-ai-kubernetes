@@ -1034,7 +1034,7 @@ console.log(toMultiDocYAML(manifests));
 ## Support
 
 - **Documentation:** https://dcyfr.ai/docs/ai-kubernetes
-- **GitHub:** https://github.com/dcyfr/dcyfr-ai-kubernetes
+- **GitHub:** https://github.com/dcyfr-labs/dcyfr-ai-kubernetes
 - **Email:** hello@dcyfr.ai
 
 ---

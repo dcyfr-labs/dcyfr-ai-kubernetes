@@ -17,7 +17,7 @@ Do not use "DCYFR" trademarks in ways that imply endorsement without permission.
 ## Development Setup
 
 ```bash
-git clone https://github.com/dcyfr/dcyfr-ai-kubernetes.git
+git clone https://github.com/dcyfr-labs/dcyfr-ai-kubernetes.git
 cd dcyfr-ai-kubernetes
 npm install
 npm test
