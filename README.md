@@ -736,10 +736,11 @@ Before deploying to production:
 
 ## Environment Files
 
-The library itself reads **no environment variables** — it is a pure manifest-generation toolkit. Two env files ship for convenience:
+The library itself reads **no environment variables** — it is a pure manifest-generation toolkit. One env file ships for convenience:
 
 - **`.env.example`** — reference values (`KUBECONFIG`, `KUBE_CONTEXT`, `KUBE_NAMESPACE`, `HELM_CHART_DIR`, `HELM_RELEASE_PREFIX`, `CONTAINER_REGISTRY`, `IMAGE_TAG`, `APP_NAME`, `APP_PORT`, `APP_REPLICAS`) for your own deployment tooling built on top of the generated manifests. Nothing in `src/` or `examples/` consumes them.
-- **`.env.ci`** — CI-only 1Password secret references used by GitHub Actions (`load-secrets-action`); not for local use.
+
+CI reads `SONAR_TOKEN` from the repository secret directly; no env file is involved.
 
 ## Development
 
